@@ -1,0 +1,49 @@
+{
+  "summary": "Senior Software Engineer with extensive experience in building scalable systems at Amazon, Swiggy, and other tech companies. Skilled in system design, distributed systems, and technical leadership.",
+  "experience": [
+    {
+      "company": "Amazon",
+      "role": "Software Development Engineer III",
+      "duration": "July 2020 - Present",
+      "description": [
+        "Led the technical vision and architecture for a cross-organizational platform modeling Amazon's worldwide catalogue.",
+        "Provided technical leadership to SDEs and drove alignment across teams in India and the US.",
+        "Executed plans for unification of fragmented platforms and led cross-team initiatives.",
+        "Mentored teams and established engineering excellence frameworks."
+      ]
+    },
+    {
+      "company": "Swiggy",
+      "role": "Principal Software Engineer",
+      "duration": "April 2019 - July 2020",
+      "description": [
+        "Architected and led the Swiggy Maps platform initiative.",
+        "Designed critical systems for trip monitoring, geofencing, and address intelligence.",
+        "Led cross-team initiatives and influenced company-level technical decisions.",
+        "Drove best practices and architectural patterns across the organization."
+      ]
+    }
+  ],
+  "education": [
+    {
+      "school": "BITS-Pilani, Goa Campus",
+      "degree": "B.E. (Hons) Electronics and Instrumentation, M.Sc (Hons) Chemistry",
+      "duration": "2008 - 2013"
+    }
+  ],
+  "skills": [
+    "System Design",
+    "Distributed Systems",
+    "AWS",
+    "Java",
+    "Spring Boot",
+    "Python",
+    "Go",
+    "Microservices",
+    "Redis",
+    "Kafka",
+    "PostgreSQL",
+    "DynamoDB",
+    "Technical Leadership"
+  ]
+}

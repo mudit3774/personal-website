@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Mudit Gupta - Personal Website</title>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <style>
+        /* ... existing styles ... */
+        
+        /* Scheduler Styles */
+        #schedule {
+            background-color: #f0f2f5;
+            padding: 60px 0;
+            margin-bottom: 40px;
+        }
+        
+        #scheduler-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 30px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+        
+        #scheduler-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #2d3436;
+            font-weight: 500;
+            font-size: 1rem;
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: #f8f9fa;
+            color: #2d3436;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #6c5ce7;
+            box-shadow: 0 0 0 2px rgba(108, 92, 231, 0.1);
+            background: white;
+        }
+        
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        .form-group.error input,
+        .form-group.error select,
+        .form-group.error textarea {
+            border-color: #dc3545;
+        }
+        
+        .error-message {
+            color: #dc3545;
+            font-size: 14px;
+            margin-top: 5px;
+            display: none;
+        }
+        
+        .form-group.error .error-message {
+            display: block;
+        }
+        
+        #scheduler-container button {
+            display: inline-block;
+            width: 100%;
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #6c5ce7 0%, #a363d9 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            font-size: 16px;
+        }
+        
+        #scheduler-container button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(108, 92, 231, 0.4);
+        }
+        
+        .section-description {
+            text-align: center;
+            font-size: 1.2em;
+            line-height: 1.6;
+            color: #4a4a4a;
+            margin-bottom: 30px;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            #scheduler-container {
+                margin: 0 20px;
+                padding: 20px;
+            }
+        }
+        
+        .helper-text {
+            color: #666;
+            font-size: 0.85em;
+            margin-top: 4px;
+            display: block;
+        }
+        
+        .payment-btn {
+            display: flex !important;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .payment-btn-text {
+            flex-grow: 1;
+            text-align: center;
+        }
+        
+        .payment-amount {
+            padding: 4px 12px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            font-size: 0.9em;
+        }
+        
+        #amount {
+            font-size: 1.2em;
+            font-weight: 500;
+            color: #6c5ce7;
+        }
+        
+        #amount::-webkit-inner-spin-button,
+        #amount::-webkit-outer-spin-button {
+            opacity: 1;
+        }
+        
+        .profile-container {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .profile-pic {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+        }
+        
+        .github-stats {
+            margin-top: 20px;
+        }
+        
+        .github-stats ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .github-stats li {
+            margin-bottom: 10px;
+        }
+        
+        .github-stats a {
+            display: inline-block;
+            margin-top: 10px;
+        }
+        
+        .profile-info {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .summary-text {
+            font-size: 1.1em;
+            margin-bottom: 20px;
+        }
+        
+        .github-stats ul li {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .github-stats ul li i {
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#about">About</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#education">Education</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#resume">Resume</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="#schedule">Book a Coffee/Beer Chat</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section id="about">
+            <h2>About Me</h2>
+            <div class="profile-container">
+                <img src="https://avatars.githubusercontent.com/u/2235629?v=4" alt="Mudit Raaj Gupta" class="profile-pic">
+                <div class="profile-info">
+                    <p class="summary-text">Hi! I'm Mudit, a passionate software engineer with expertise in microservices, machine learning, and data engineering.</p>
+                    <div class="github-stats">
+                        <ul>
+                            <li>
+                                <i class="fas fa-code-branch"></i>
+                                <span>19 Public Repositories</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-users"></i>
+                                <span>9 Followers</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-user-plus"></i>
+                                <span>2 Following</span>
+                            </li>
+                        </ul>
+                        <a href="https://github.com/mudit3774" target="_blank">
+                            <i class="fab fa-github"></i>
+                            View GitHub Profile
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="experience">
+            <h2>Professional Experience</h2>
+            <div id="experience-content"></div>
+        </section>
+
+        <section id="education">
+            <h2>Education</h2>
+            <div id="education-content"></div>
+        </section>
+
+        <section id="skills">
+            <h2>Skills</h2>
+            <div id="skills-content"></div>
+        </section>
+
+        <section id="resume">
+            <h2>Resume</h2>
+            <div class="pdf-container">
+                <embed src="/static/assets/resume.pdf" type="application/pdf" width="100%" height="600px" />
+            </div>
+            <div class="download-button">
+                <a href="/static/assets/resume.pdf" download class="btn">Download Resume</a>
+            </div>
+        </section>
+
+        <section id="contact">
+            <h2>Contact Me</h2>
+            <form id="contact-form">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                <label for="message">Message:</label>
+                <textarea id="message" name="message" required></textarea>
+                <button type="submit" class="btn">Send</button>
+            </form>
+        </section>
+
+        <!-- Meeting Scheduler Section -->
+        <section id="schedule">
+            <div class="container">
+                <h2>Book a Coffee/Beer Chat</h2>
+                <p class="section-description">Let's discuss your ideas over a virtual coffee or beer! Minimum booking duration is 30 minutes.</p>
+                <div id="scheduler-container">
+                    <div class="form-group">
+                        <label for="meeting-date">Select Date</label>
+                        <input type="date" id="meeting-date" onchange="loadAvailableSlots()">
+                        <div class="error-message"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="time-slot">Available Time Slots</label>
+                        <select id="time-slot">
+                            <option value="">Select a time slot</option>
+                        </select>
+                        <div class="error-message"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="meeting-email">Your Email</label>
+                        <input type="email" id="meeting-email" placeholder="Enter your email address">
+                        <div class="error-message"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="meeting-agenda">Meeting Agenda</label>
+                        <textarea id="meeting-agenda" placeholder="Please describe the purpose of the meeting"></textarea>
+                        <div class="error-message"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="duration">Duration (minutes)</label>
+                        <select id="duration" onchange="updateAmount()">
+                            <option value="30">30 minutes</option>
+                            <option value="60">60 minutes</option>
+                            <option value="90">90 minutes</option>
+                            <option value="120">120 minutes</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="amount">Amount (₹)</label>
+                        <input type="number" id="amount" min="500" step="100" value="500" onchange="validateAmount()">
+                        <small class="helper-text">Minimum ₹500 per 30 minutes</small>
+                        <div class="error-message"></div>
+                    </div>
+                    <button id="pay-button" class="btn" onclick="handlePayment()">Pay for Coffee/Beer</button>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2025 Mudit Gupta. All rights reserved.</p>
+    </footer>
+    <script src="/static/script.js"></script>
+</body>
+</html>

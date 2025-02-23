@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Contact Messages</title>
+    <style>
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background: #f0f2f5;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            color: #6c5ce7;
+            margin-bottom: 30px;
+        }
+        
+        .contact-card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .contact-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .contact-name {
+            font-size: 1.2em;
+            font-weight: 600;
+            color: #2d3436;
+        }
+        
+        .contact-email {
+            color: #6c5ce7;
+        }
+        
+        .contact-time {
+            color: #666;
+            font-size: 0.9em;
+        }
+        
+        .contact-message {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 10px;
+        }
+        
+        .button {
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            margin-left: 10px;
+        }
+        
+        .delete-btn {
+            background: #ff6b6b;
+            color: white;
+        }
+        
+        .delete-btn:hover {
+            background: #ff5252;
+        }
+        
+        .reply-btn {
+            background: #6c5ce7;
+            color: white;
+        }
+        
+        .reply-btn:hover {
+            background: #5f4dd0;
+        }
+        
+        .reply-form {
+            margin-top: 15px;
+            display: none;
+        }
+        
+        .reply-form.active {
+            display: block;
+        }
+        
+        .reply-textarea {
+            width: 100%;
+            min-height: 100px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            font-family: inherit;
+            resize: vertical;
+        }
+        
+        .send-reply-btn {
+            background: #6c5ce7;
+            color: white;
+        }
+        
+        .send-reply-btn:hover {
+            background: #5f4dd0;
+        }
+        
+        .cancel-reply-btn {
+            background: #e0e0e0;
+            color: #333;
+        }
+        
+        .cancel-reply-btn:hover {
+            background: #d0d0d0;
+        }
+        
+        .reply-status {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.9em;
+            margin-left: 10px;
+        }
+        
+        .replied {
+            background: #a8e6cf;
+            color: #2d3436;
+        }
+        
+        .not-replied {
+            background: #ffd3b6;
+            color: #2d3436;
+        }
+        
+        .reply-history {
+            margin-top: 15px;
+            padding: 15px;
+            background: #f0f2f5;
+            border-radius: 6px;
+            display: none;
+        }
+        
+        .reply-history.active {
+            display: block;
+        }
+        
+        .refresh-btn {
+            background: #6c5ce7;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 20px;
+        }
+        
+        .refresh-btn:hover {
+            background: #5f4dd0;
+            transform: translateY(-2px);
+        }
+        
+        .no-messages {
+            text-align: center;
+            padding: 40px;
+            background: white;
+            border-radius: 8px;
+            color: #666;
+        }
+        
+        .tab-buttons {
+            margin-bottom: 20px;
+        }
+        
+        .tab-button {
+            padding: 10px 20px;
+            margin-right: 10px;
+            border: none;
+            background: #007bff;
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        .tab-button.active {
+            background: #0056b3;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        
+        input[type="text"], input[type="time"], textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        
+        button {
+            padding: 8px 16px;
+            background: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        button:hover {
+            background: #218838;
+        }
+        
+        .appointment {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+        }
+        
+        .appointment-notes {
+            margin-top: 10px;
+        }
+        
+        .notes-textarea {
+            width: 100%;
+            margin-top: 5px;
+        }
+        
+        .error-message {
+            color: #dc3545;
+            font-size: 14px;
+            margin-top: 5px;
+            display: none;
+        }
+        
+        .form-group.error input,
+        .form-group.error select,
+        .form-group.error textarea {
+            border-color: #dc3545;
+        }
+        
+        .form-group.error .error-message {
+            display: block;
+        }
+        
+        .btn-primary {
+            background-color: #2c3e50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .btn-primary:hover {
+            background-color: #34495e;
+        }
+        
+        #scheduler-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        #scheduler-container .form-group {
+            margin-bottom: 20px;
+        }
+        
+        #scheduler-container label {
+            color: #2c3e50;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        #scheduler-container input,
+        #scheduler-container select,
+        #scheduler-container textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        
+        #scheduler-container textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Admin Panel - Contact Messages</h1>
+        
+        <div class="tab-buttons">
+            <button class="tab-button active" onclick="showTab('contacts')">Contact Messages</button>
+            <button class="tab-button" onclick="showTab('timeslots')">Time Slots</button>
+            <button class="tab-button" onclick="showTab('appointments')">Appointments</button>
+        </div>
+
+        <!-- Contact Messages Tab -->
+        <div id="contacts" class="tab-content section active">
+            <h2>Contact Messages</h2>
+            <button class="refresh-btn" onclick="loadContacts()">Refresh Messages</button>
+            <div id="contacts-container"></div>
+        </div>
+
+        <!-- Time Slots Tab -->
+        <div id="timeslots" class="tab-content section">
+            <h2>Manage Time Slots</h2>
+            <form id="timeslot-form" onsubmit="createTimeSlot(event)">
+                <div class="form-group">
+                    <label for="slot-pattern">Pattern (e.g., "MON|WED|FRI" for Mon/Wed/Fri):</label>
+                    <input type="text" id="slot-pattern" required pattern="^([A-Z]{3}(\|[A-Z]{3})*)?$">
+                    <div class="error-message">Please enter a valid pattern (e.g., MON|WED|FRI)</div>
+                    <small>Use 3-letter day abbreviations: MON, TUE, WED, THU, FRI, SAT, SUN</small>
+                </div>
+                <div class="form-group">
+                    <label for="slot-time">Start Time:</label>
+                    <input type="time" id="slot-time" required>
+                    <div class="error-message">Please select a start time</div>
+                </div>
+                <div class="form-group">
+                    <label for="slot-duration">Duration (minutes):</label>
+                    <input type="number" id="slot-duration" required min="15" max="180" value="30">
+                    <div class="error-message">Duration must be between 15 and 180 minutes</div>
+                </div>
+                <button type="submit" class="btn-primary">Create Time Slot</button>
+            </form>
+            
+            <h3>Existing Time Slots</h3>
+            <div id="timeslots-container"></div>
+        </div>
+
+        <!-- Appointments Tab -->
+        <div id="appointments" class="tab-content section">
+            <h2>Appointments</h2>
+            <div id="appointments-container"></div>
+        </div>
+    </div>
+
+    <script>
+        // Tab switching
+        function showTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            document.querySelector(`button[onclick="showTab('${tabId}')"]`).classList.add('active');
+        }
+
+        // Time Slots Management
+        async function createTimeSlot(event) {
+            event.preventDefault();
+            
+            if (!validateTimeSlotForm()) {
+                return;
+            }
+
+            const pattern = document.getElementById('slot-pattern').value.trim();
+            const time = document.getElementById('slot-time').value;
+            const duration = parseInt(document.getElementById('slot-duration').value);
+
+            try {
+                const response = await fetch('http://localhost:5006/api/timeslots', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        pattern: pattern,
+                        start_time: time,
+                        duration: duration
+                    })
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.error || 'Failed to create time slot');
+                }
+
+                document.getElementById('timeslot-form').reset();
+                alert('Time slot created successfully!');
+                loadTimeSlots();
+            } catch (error) {
+                console.error('Error creating time slot:', error);
+                alert(error.message);
+            }
+        }
+
+        function showError(element, message) {
+            const formGroup = element.closest('.form-group');
+            formGroup.classList.add('error');
+            const errorDiv = formGroup.querySelector('.error-message');
+            if (errorDiv) {
+                errorDiv.textContent = message;
+            }
+        }
+
+        function clearError(element) {
+            const formGroup = element.closest('.form-group');
+            formGroup.classList.remove('error');
+        }
+
+        function validateTimeSlotForm() {
+            let isValid = true;
+            const pattern = document.getElementById('slot-pattern');
+            const time = document.getElementById('slot-time');
+            const duration = document.getElementById('slot-duration');
+
+            // Validate pattern
+            const patternRegex = /^[A-Z]{3}(\|[A-Z]{3})*$/;
+            if (!patternRegex.test(pattern.value)) {
+                showError(pattern, 'Please enter a valid pattern (e.g., MON|WED|FRI)');
+                isValid = false;
+            } else {
+                clearError(pattern);
+            }
+
+            // Validate time
+            if (!time.value) {
+                showError(time, 'Please select a start time');
+                isValid = false;
+            } else {
+                clearError(time);
+            }
+
+            // Validate duration
+            const durationValue = parseInt(duration.value);
+            if (isNaN(durationValue) || durationValue < 15 || durationValue > 180) {
+                showError(duration, 'Duration must be between 15 and 180 minutes');
+                isValid = false;
+            } else {
+                clearError(duration);
+            }
+
+            return isValid;
+        }
+
+        async function loadTimeSlots() {
+            try {
+                const response = await fetch('http://localhost:5006/api/timeslots');
+                const slots = await response.json();
+                
+                const container = document.getElementById('timeslots-container');
+                container.innerHTML = slots.map(slot => `
+                    <div class="appointment">
+                        <p><strong>Pattern:</strong> ${slot.pattern}</p>
+                        <p><strong>Time:</strong> ${slot.start_time}</p>
+                        <p><strong>Duration:</strong> ${slot.duration} minutes</p>
+                    </div>
+                `).join('');
+            } catch (error) {
+                console.error('Error loading time slots:', error);
+            }
+        }
+
+        // Appointments Management
+        async function loadAppointments() {
+            try {
+                const response = await fetch('http://localhost:5006/api/appointments');
+                const appointments = await response.json();
+                
+                const container = document.getElementById('appointments-container');
+                container.innerHTML = appointments.map(apt => `
+                    <div class="appointment">
+                        <p><strong>Date/Time:</strong> ${new Date(apt.datetime).toLocaleString()}</p>
+                        <p><strong>Email:</strong> ${apt.email}</p>
+                        <p><strong>Agenda:</strong> ${apt.agenda}</p>
+                        <p><strong>Duration:</strong> ${apt.duration} minutes</p>
+                        <div class="appointment-notes">
+                            <label>Notes:</label>
+                            <textarea class="notes-textarea" id="notes-${apt.id}" 
+                                onchange="updateNotes(${apt.id})">${apt.notes || ''}</textarea>
+                        </div>
+                    </div>
+                `).join('');
+            } catch (error) {
+                console.error('Error loading appointments:', error);
+            }
+        }
+
+        async function updateNotes(appointmentId) {
+            try {
+                const notes = document.getElementById(`notes-${appointmentId}`).value;
+                const response = await fetch(`http://localhost:5006/api/appointments/${appointmentId}/notes`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ notes: notes })
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to update notes');
+                }
+            } catch (error) {
+                console.error('Error updating notes:', error);
+                alert('Failed to save notes');
+            }
+        }
+
+        // Contact Messages Management
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleString();
+        }
+
+        function toggleReplyForm(id) {
+            const form = document.getElementById(`reply-form-${id}`);
+            const history = document.getElementById(`reply-history-${id}`);
+            
+            if (form.classList.contains('active')) {
+                form.classList.remove('active');
+            } else {
+                // Hide all other forms first
+                document.querySelectorAll('.reply-form').forEach(f => f.classList.remove('active'));
+                form.classList.add('active');
+            }
+            
+            if (history) {
+                history.classList.toggle('active');
+            }
+        }
+
+        async function sendReply(id) {
+            const textarea = document.getElementById(`reply-textarea-${id}`);
+            const replyMessage = textarea.value.trim();
+            
+            if (!replyMessage) {
+                alert('Please enter a reply message');
+                return;
+            }
+            
+            try {
+                const response = await fetch(`http://localhost:5006/api/contacts/${id}/reply`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ reply_message: replyMessage })
+                });
+                
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.error || 'Failed to send reply');
+                }
+                
+                const result = await response.json();
+                alert('Reply sent successfully!');
+                loadContacts(); // Refresh the list
+                
+            } catch (error) {
+                console.error('Error sending reply:', error);
+                alert(error.message);
+            }
+        }
+
+        async function deleteContact(id) {
+            if (!confirm('Are you sure you want to delete this message?')) {
+                return;
+            }
+            
+            try {
+                const response = await fetch(`http://localhost:5006/api/contacts/${id}`, {
+                    method: 'DELETE'
+                });
+                
+                if (response.ok) {
+                    loadContacts();
+                } else {
+                    alert('Failed to delete the message');
+                }
+            } catch (error) {
+                console.error('Error deleting contact:', error);
+                alert('Error deleting the message');
+            }
+        }
+
+        async function loadContacts() {
+            try {
+                const response = await fetch('http://localhost:5006/api/contacts');
+                const contacts = await response.json();
+                
+                const container = document.getElementById('contacts-container');
+                
+                if (contacts.length === 0) {
+                    container.innerHTML = '<div class="no-messages">No messages yet</div>';
+                    return;
+                }
+                
+                container.innerHTML = contacts.map(contact => `
+                    <div class="contact-card">
+                        <div class="contact-header">
+                            <div>
+                                <div class="contact-name">
+                                    ${contact.name}
+                                    <span class="reply-status ${contact.replied ? 'replied' : 'not-replied'}">
+                                        ${contact.replied ? 'Replied' : 'Not Replied'}
+                                    </span>
+                                </div>
+                                <div class="contact-email">${contact.email}</div>
+                            </div>
+                            <div>
+                                <button class="button reply-btn" onclick="toggleReplyForm(${contact.id})">
+                                    ${contact.replied ? 'View Reply' : 'Reply'}
+                                </button>
+                                <button class="button delete-btn" onclick="deleteContact(${contact.id})">Delete</button>
+                            </div>
+                        </div>
+                        <div class="contact-time">Received: ${formatDate(contact.timestamp)}</div>
+                        <div class="contact-message">${contact.message}</div>
+                        
+                        ${contact.replied ? `
+                            <div id="reply-history-${contact.id}" class="reply-history">
+                                <strong>Your Reply (${formatDate(contact.reply_timestamp)}):</strong>
+                                <div class="contact-message">${contact.reply_message}</div>
+                            </div>
+                        ` : ''}
+                        
+                        <div id="reply-form-${contact.id}" class="reply-form">
+                            <textarea 
+                                id="reply-textarea-${contact.id}" 
+                                class="reply-textarea" 
+                                placeholder="Type your reply here..."
+                            >${contact.reply_message || ''}</textarea>
+                            <button class="button send-reply-btn" onclick="sendReply(${contact.id})">
+                                Send Reply
+                            </button>
+                            <button class="button cancel-reply-btn" onclick="toggleReplyForm(${contact.id})">
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
+                `).join('');
+                
+            } catch (error) {
+                console.error('Error loading contacts:', error);
+                document.getElementById('contacts-container').innerHTML = 
+                    '<div class="no-messages">Error loading messages. Please try again.</div>';
+            }
+        }
+
+        // Load all data on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            loadContacts();
+            loadTimeSlots();
+            loadAppointments();
+        });
+    </script>
+</body>
+</html>

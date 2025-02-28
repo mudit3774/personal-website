@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mudit Gupta - Personal Website</title>
+    <link rel="stylesheet" href="static/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#about">About</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="#schedule">Schedule Meeting</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="about">
+            <h2>About Me</h2>
+            <div class="profile-container">
+                <img src="https://avatars.githubusercontent.com/u/2235629?v=4" alt="Mudit Raaj Gupta" class="profile-pic">
+                <div class="profile-info">
+                    <p class="summary-text">Hi! I'm Mudit, a passionate software engineer with expertise in microservices, machine learning, and data engineering.</p>
+                    <div class="github-stats">
+                        <ul>
+                            <li>
+                                <i class="fas fa-code-branch"></i>
+                                <span>19 Public Repositories</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-users"></i>
+                                <span>9 Followers</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-user-plus"></i>
+                                <span>2 Following</span>
+                            </li>
+                        </ul>
+                        <a href="https://github.com/mudit3774" target="_blank">
+                            <i class="fab fa-github"></i>
+                            View GitHub Profile
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="experience">
+            <h2>Professional Experience</h2>
+            <div id="experience-content"></div>
+        </section>
+
+        <section id="projects">
+            <h2>Projects</h2>
+            <div id="projects-content"></div>
+        </section>
+
+        <section id="contact">
+            <h2>Contact Me</h2>
+            <form id="contact-form">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                <label for="message">Message:</label>
+                <textarea id="message" name="message" required></textarea>
+                <button type="submit" class="btn">Send</button>
+            </form>
+        </section>
+
+        <section id="schedule">
+            <h2>Schedule a Meeting</h2>
+            <div class="scheduler-container">
+                <form id="scheduler-form">
+                    <label for="meeting-date">Date:</label>
+                    <input type="date" id="meeting-date" name="date" required>
+                    <label for="meeting-time">Time:</label>
+                    <input type="time" id="meeting-time" name="time" required>
+                    <label for="meeting-duration">Duration (minutes):</label>
+                    <select id="meeting-duration" name="duration" required>
+                        <option value="30">30 minutes</option>
+                        <option value="60">1 hour</option>
+                    </select>
+                    <button type="submit" class="btn">Schedule</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Mudit Gupta. All rights reserved.</p>
+    </footer>
+
+    <script src="static/script.js"></script>
+</body>
+</html>
